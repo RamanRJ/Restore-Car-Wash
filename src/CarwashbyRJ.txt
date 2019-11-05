@@ -1,0 +1,231 @@
+{$CLEO .cs}
+thread 'CARWASH' 
+wait 0 
+0A95: enable_thread_saving
+1@ = Marker.CreateIconWithoutSphere(27, 2470.8518, -1468.3072, 24.74)
+1@ = Marker.CreateIconWithoutSphere(27, 1912.151, -1781.6, 13.3828)
+1@ = Marker.CreateIconWithoutSphere(27, 2163.5639, 2474.2236, 10.8203)
+
+0000: NOP 
+10@ = -1 
+
+:NONAME_9
+wait 0 
+if 
+   Player.Defined($PLAYER_CHAR)
+else_jump @NONAME_1371 
+gosub @NONAME_1378 
+if 
+   not 10@ == -1 
+else_jump @NONAME_1371 
+gosub @NONAME_1557 
+Player.CanMove($PLAYER_CHAR) = False
+Actor.SetImmunities($PLAYER_ACTOR, 1, 1, 1, 1, 1)
+03BF: set_player $PLAYER_CHAR ignored_by_everyone 1 
+08D4: 0@ = create_panel_with_title 'CWSH_T' position 100.0 250.0 width 180.0 columns 1 interactive 1 background 1 alignment 0 
+08DB: set_panel 0@ column 0 header 'CWSH_H' data 'CWSH_1' 'DUMMY' 'CWSH_2' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 'DUMMY' 
+
+:NONAME_251
+   Player.Defined($PLAYER_CHAR)
+else_jump @NONAME_1352 
+wait 0 
+if 
+00E1:   player 0 pressed_key 16 
+else_jump @NONAME_1148 
+08D7: 3@ = panel 0@ active_row 
+08DA: remove_panel 0@ 
+if 
+  3@ == 0 
+else_jump @NONAME_329 
+Player.Money($PLAYER_CHAR) += -20
+jump @NONAME_347 
+
+:NONAME_329
+if 
+  3@ == 2 
+else_jump @NONAME_347 
+
+:NONAME_347
+if 
+  10@ == 1 
+else_jump @NONAME_618 
+064B: 4@ = create_particle "carwashspray" at 2457.792 -1458.417 24.0 type 1 
+064C: make_particle 4@ visible 
+064B: 5@ = create_particle "carwashspray" at 2457.467 -1463.682 24.0 type 1 
+064C: make_particle 5@ visible 
+064B: 6@ = create_particle "carwashspray" at 2454.484 -1458.876 24.0 type 1 
+064C: make_particle 6@ visible 
+064B: 7@ = create_particle "carwashspray" at 2454.173 -1463.175 24.0 type 1 
+064C: make_particle 7@ visible 
+064B: 8@ = create_particle "carwashspray" at 2451.273 -1458.829 24.0 type 1 
+064C: make_particle 8@ visible 
+064B: 9@ = create_particle "carwashspray" at 2451.027 -1463.467 24.0 type 1 
+064C: make_particle 9@ visible 
+jump @NONAME_882 
+
+:NONAME_618
+if 
+  10@ == 2 
+else_jump @NONAME_620
+064B: 4@ = create_particle "carwashspray" at 1913.217 -1779.265 13.3828 type 1 
+064C: make_particle 4@ visible 
+064B: 5@ = create_particle "carwashspray" at 1909.451 -1779.246 13.3828 type 1 
+064C: make_particle 5@ visible 
+064B: 6@ = create_particle "carwashspray" at 1913.211 -1776.296 13.3828 type 1 
+064C: make_particle 6@ visible 
+064B: 7@ = create_particle "carwashspray" at 1909.212 -1776.406 13.3828 type 1 
+064C: make_particle 7@ visible 
+064B: 8@ = create_particle "carwashspray" at 1913.029 -1773.353 13.3828 type 1 
+064C: make_particle 8@ visible 
+064B: 9@ = create_particle "carwashspray" at 1909.364 -1773.458 13.3828 type 1 
+064C: make_particle 9@ visible 
+
+:NONAME_620
+if 
+  10@ == 3 
+else_jump @NONAME_882 
+064B: 4@ = create_particle "carwashspray" at 2163.8178 2476.8127 10.8203 type 1 
+064C: make_particle 4@ visible 
+064B: 5@ = create_particle "carwashspray" at 2162.4189 2476.5156 10.8203 type 1 
+064C: make_particle 5@ visible 
+064B: 6@ = create_particle "carwashspray" at 2163.8757 2472.7087 10.8203 type 1 
+064C: make_particle 6@ visible 
+064B: 7@ = create_particle "carwashspray" at 2162.2526 2472.5888 10.8203 type 1 
+064C: make_particle 7@ visible 
+064B: 8@ = create_particle "carwashspray" at 2164.1469 2470.878 10.8203 type 1 
+064C: make_particle 8@ visible 
+064B: 9@ = create_particle "carwashspray" at 2162.725 2469.7941 10.8203 type 1 
+064C: make_particle 9@ visible 
+
+:NONAME_882
+0811: 1@ = actor $PLAYER_ACTOR used_car 
+Player.CanMove($PLAYER_CHAR) = True
+Actor.SetImmunities($PLAYER_ACTOR, 0, 0, 0, 0, 0)
+03BF: set_player $PLAYER_CHAR ignored_by_everyone 0 
+0ACF: show_formatted_styled_text "Continue forward!" time 2000 style 4  
+
+:NONAME_944
+wait 0 
+if and
+   not Car.Wrecked(1@)
+   not Player.Wasted($PLAYER_CHAR)
+8741:   not actor $PLAYER_ACTOR busted 
+else_jump @NONAME_1085 
+if 
+0100:   actor $PLAYER_ACTOR in_sphere 11@ 12@ 13@ radius 4.0 4.0 1.0 sphere 0 in_car 
+else_jump @NONAME_1078 
+0878: set_car 1@ dirt_level 0.0  
+0ACF: show_formatted_styled_text "Your car has been washed." time 2000 style 4  
+jump @NONAME_1099 
+
+:NONAME_1078
+jump @NONAME_1092 
+
+:NONAME_1085
+jump @NONAME_1099 
+
+:NONAME_1092
+jump @NONAME_944 
+
+:NONAME_1099
+0650: destroy_particle 4@ 
+0650: destroy_particle 5@ 
+0650: destroy_particle 6@ 
+0650: destroy_particle 7@ 
+0650: destroy_particle 8@ 
+0650: destroy_particle 9@ 
+Car.RemoveReferences(1@)
+jump @NONAME_1352 
+jump @NONAME_1345 
+
+:NONAME_1148
+if 
+00E1:   player 0 pressed_key 15 
+else_jump @NONAME_1345 
+08DA: remove_panel 0@ 
+Player.CanMove($PLAYER_CHAR) = True
+Actor.SetImmunities($PLAYER_ACTOR, 0, 0, 0, 0, 0)
+03BF: set_player $PLAYER_CHAR ignored_by_everyone 0 
+if 
+  10@ == 1 
+else_jump @NONAME_1272 
+
+:NONAME_1217
+wait 0 
+8103:   not actor $PLAYER_ACTOR in_sphere 2473.98 -1460.873 24.0594 radius 2.5 2.5 1.0 sphere 0 stopped_in_car 
+else_jump @NONAME_1217 
+jump @NONAME_1338 
+
+:NONAME_1272
+if 
+  10@ == 2 
+else_jump @NONAME_1338 
+
+:NONAME_1290
+wait 0 
+8103:   not actor $PLAYER_ACTOR in_sphere 1911.214 -1785.772 13.4404 radius 2.5 2.5 1.0 sphere 0 stopped_in_car 
+else_jump @NONAME_1290 
+
+:NONAME_1298
+wait 0 
+8103:   not actor $PLAYER_ACTOR in_sphere 2163.6616 2485.3168 10.8203 radius 2.5 2.5 1.0 sphere 0 stopped_in_car 
+else_jump @NONAME_1298 
+
+:NONAME_1338
+jump @NONAME_1352 
+
+:NONAME_1345
+jump @NONAME_251 
+
+:NONAME_1352
+10@ = -1 
+gosub @NONAME_1657 
+wait 250 
+
+:NONAME_1371
+jump @NONAME_9 
+
+:NONAME_1378
+if 
+0103:   actor $PLAYER_ACTOR in_sphere 2473.98 -1460.873 24.0594 radius 4.0 4.0 1.0 sphere 1 stopped_in_car 
+else_jump @NONAME_1470 
+10@ = 1 
+11@ = 2440.648 
+12@ = -1461.13 
+13@ = 24.0521 
+jump @NONAME_1555 
+
+:NONAME_1470
+if 
+0103:   actor $PLAYER_ACTOR in_sphere 1911.214 -1785.772 13.4404 radius 4.0 4.0 1.0 sphere 1 stopped_in_car 
+else_jump @NONAME_1500 
+10@ = 2 
+11@ = 1911.237 
+12@ = -1768.202 
+13@ = 13.4353 
+
+:NONAME_1500
+if 
+0103:   actor $PLAYER_ACTOR in_sphere 2163.6616 2485.3168 10.8203 radius 4.0 4.0 1.0 sphere 1 stopped_in_car 
+else_jump @NONAME_1555 
+10@ = 3 
+11@ = 2163.8244 
+12@ = 2461.1059 
+13@ = 10.7642
+
+:NONAME_1555
+return 
+
+:NONAME_1557
+0ADF: add_dynamic_GXT_entry 'CWSH_T' text "Car Wash" 
+0ADF: add_dynamic_GXT_entry 'CWSH_H' text "Choose one:" 
+0ADF: add_dynamic_GXT_entry 'CWSH_1' text "Express Wash - $20" 
+0ADF: add_dynamic_GXT_entry 'CWSH_2' text "Free Wash" 
+return 
+
+:NONAME_1657
+0AE0: remove_dynamic_GXT_entry 'CWSH_T' 
+0AE0: remove_dynamic_GXT_entry 'CWSH_H' 
+0AE0: remove_dynamic_GXT_entry 'CWSH_1' 
+0AE0: remove_dynamic_GXT_entry 'CWSH_2' 
+return 
