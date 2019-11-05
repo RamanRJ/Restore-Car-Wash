@@ -2,9 +2,10 @@
 thread 'CARWASH' 
 wait 0 
 0A95: enable_thread_saving
-1@ = Marker.CreateIconWithoutSphere(27, 2470.8518, -1468.3072, 24.74)
-1@ = Marker.CreateIconWithoutSphere(27, 1912.151, -1781.6, 13.3828)
-1@ = Marker.CreateIconWithoutSphere(27, 2163.5639, 2474.2236, 10.8203)
+1@ = Marker.CreateIconWithoutSphere(55, 2470.8518, -1468.3072, 24.74)
+1@ = Marker.CreateIconWithoutSphere(55, 1912.151, -1781.6, 13.3828)
+1@ = Marker.CreateIconWithoutSphere(55, 2163.5639, 2474.2236, 10.8203)
+1@ = Marker.CreateIconWithoutSphere(55, 1018.6527, -922.8432, 42.1796)
 
 0000: NOP 
 10@ = -1 
@@ -83,7 +84,7 @@ else_jump @NONAME_620
 :NONAME_620
 if 
   10@ == 3 
-else_jump @NONAME_882 
+else_jump @NONAME_622 
 064B: 4@ = create_particle "carwashspray" at 2163.8178 2476.8127 10.8203 type 1 
 064C: make_particle 4@ visible 
 064B: 5@ = create_particle "carwashspray" at 2162.4189 2476.5156 10.8203 type 1 
@@ -97,12 +98,29 @@ else_jump @NONAME_882
 064B: 9@ = create_particle "carwashspray" at 2162.725 2469.7941 10.8203 type 1 
 064C: make_particle 9@ visible 
 
+:NONAME_622
+if 
+  10@ == 4 
+else_jump @NONAME_882 
+064B: 4@ = create_particle "carwashspray" at 1018.2570 -914.4451 42.3437 type 1 
+064C: make_particle 4@ visible 
+064B: 5@ = create_particle "carwashspray" at 1016.2324 -914.8598 42.3437 type 1 
+064C: make_particle 5@ visible 
+064B: 6@ = create_particle "carwashspray" at 1018.5571 -916.7937 42.3437 type 1 
+064C: make_particle 6@ visible 
+064B: 7@ = create_particle "carwashspray" at 1016.8320 -917.2538 42.3437 type 1 
+064C: make_particle 7@ visible 
+064B: 8@ = create_particle "carwashspray" at 1017.913 -919.5193 42.3437 type 1 
+064C: make_particle 8@ visible 
+064B: 9@ = create_particle "carwashspray" at 1018.8168 -919.6590 42.3437 type 1 
+064C: make_particle 9@ visible
+
 :NONAME_882
 0811: 1@ = actor $PLAYER_ACTOR used_car 
 Player.CanMove($PLAYER_CHAR) = True
 Actor.SetImmunities($PLAYER_ACTOR, 0, 0, 0, 0, 0)
 03BF: set_player $PLAYER_CHAR ignored_by_everyone 0 
-0ACF: show_formatted_styled_text "Continue forward!" time 2000 style 4  
+0ACF: show_formatted_styled_text "Continue forward!" time 2000 style 5  
 
 :NONAME_944
 wait 0 
@@ -115,7 +133,7 @@ if
 0100:   actor $PLAYER_ACTOR in_sphere 11@ 12@ 13@ radius 4.0 4.0 1.0 sphere 0 in_car 
 else_jump @NONAME_1078 
 0878: set_car 1@ dirt_level 0.0  
-0ACF: show_formatted_styled_text "Your car has been washed." time 2000 style 4  
+0ACF: show_formatted_styled_text "Your car has been washed." time 2000 style 5  
 jump @NONAME_1099 
 
 :NONAME_1078
@@ -171,6 +189,11 @@ wait 0
 8103:   not actor $PLAYER_ACTOR in_sphere 2163.6616 2485.3168 10.8203 radius 2.5 2.5 1.0 sphere 0 stopped_in_car 
 else_jump @NONAME_1298 
 
+:NONAME_1311
+wait 0 
+8103:   not actor $PLAYER_ACTOR in_sphere 1016.8667 -911.3591 42.1796 radius 2.5 2.5 1.0 sphere 0 stopped_in_car 
+else_jump @NONAME_1311
+
 :NONAME_1338
 jump @NONAME_1352 
 
@@ -207,11 +230,20 @@ else_jump @NONAME_1500
 :NONAME_1500
 if 
 0103:   actor $PLAYER_ACTOR in_sphere 2163.6616 2485.3168 10.8203 radius 4.0 4.0 1.0 sphere 1 stopped_in_car 
-else_jump @NONAME_1555 
+else_jump @NONAME_1502 
 10@ = 3 
 11@ = 2163.8244 
 12@ = 2461.1059 
 13@ = 10.7642
+
+:NONAME_1502
+if 
+0103:   actor $PLAYER_ACTOR in_sphere 1016.8667 -911.3591 42.1796 radius 4.0 4.0 1.0 sphere 1 stopped_in_car 
+else_jump @NONAME_1555 
+10@ = 4 
+11@ = 1018.8599 
+12@ = -925.3828 
+13@ = 42.1796
 
 :NONAME_1555
 return 
